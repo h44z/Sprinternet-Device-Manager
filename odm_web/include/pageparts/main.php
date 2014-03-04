@@ -67,6 +67,7 @@ if ($nrOfDevices > 0) {
 				<div id="cmd_wpe" class="command-list"><?php echo _("main_dev_wipe"); ?></div>
 				<div id="cmd_ntf" class="command-list"><?php echo _("main_dev_notify"); ?></div>
 				<div id="cmd_sys" class="command-list"><?php echo _("main_dev_info"); ?></div>
+				<div id="cmd_aud" class="command-list"><?php echo _("main_dev_audio"); ?></div>
 				<div id="cmd_rem" class="command-list"><?php echo _("main_dev_remove"); ?></div>
 			</div>
 		</div>
@@ -107,6 +108,7 @@ if ($nrOfDevices > 0) {
 			  <option value="wipe"><?php echo _("main_dev_wipe"); ?></option>
 			  <option value="notify"><?php echo _("main_dev_notify"); ?></option>
 			  <option value="info"><?php echo _("main_dev_info"); ?></option>
+			  <option value="audio"><?php echo _("main_dev_audio"); ?></option>
 			  <option value="delete"><?php echo _("main_dev_remove"); ?></option>
             </select>
             <input id="cmd_message_field" class="w-input" type="text" placeholder="<?php echo _("main_enter_message");?>" name="value" data-name="value"></input>

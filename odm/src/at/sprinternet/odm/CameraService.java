@@ -1,7 +1,6 @@
 package at.sprinternet.odm;
 
 import static at.sprinternet.odm.misc.CommonUtilities.Logd;
-import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +20,6 @@ public class CameraService extends Service {
 		return null;
 	}
 
-	@SuppressLint("NewApi")
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Logd(TAG, "Starting camera service...");

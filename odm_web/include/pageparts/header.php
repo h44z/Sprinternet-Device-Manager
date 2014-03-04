@@ -14,6 +14,7 @@
   <script src="js/ajax/map.js"></script>
   <script src="js/ajax/image.js"></script>
   <script src="js/ajax/sysinfo.js"></script>
+  <script src="js/ajax/audio.js"></script>
   <script src="js/ajax/ajax.js"></script>
   <script>
     WebFont.load({

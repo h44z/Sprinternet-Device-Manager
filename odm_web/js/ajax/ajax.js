@@ -18,6 +18,14 @@ function deviceRemoved(data) {
 /**
  * Special command functions
  */
+function sendCaptureAudio(event) {
+	var length = prompt("Enter the number of seconds to capture.", "");
+	if (length && length != "")		
+		sendPushNotification(event.data.id, "Type=audio:Command:CaptureAudio:" + length);
+	else
+		toggleCommands();
+}
+
 function sendNotification(event) {
 	var message = prompt("Enter the notification to display.", "");
 	if (message && message != "")
@@ -93,7 +101,7 @@ function sendPushNotification(id, message, notogglecmd) {
 	
 	buttonLoading(); // disable command button!
 	
-	if (message == "Command:GetLocation" || message == "Command:GetLocationGPS" || message == "Command:FrontPhoto" || message == "Command:RearPhoto") {
+	if (message == "Command:GetLocation" || message == "Command:GetLocationGPS" || message == "Command:FrontPhoto" || message == "Command:RearPhoto" || message.indexOf("Command:CaptureAudio") == 0) {
 		waitingForResponse();
 	} else {
 		waitingForResponse(true); // just display a static text for 2 secs
@@ -154,6 +162,9 @@ function gotMessages(data) {
 					onclickclass = "clickable ";
 				} else if (messages[i].type == "info" && messages[i].has_data == true) {
 					onclick = " onclick='showSysinfo("+messages[i].id+")'";
+					onclickclass = "clickable ";
+				} else if (messages[i].type == "audio" && messages[i].has_data == true) {
+					onclick = " onclick='playAudio("+messages[i].id+")'";
 					onclickclass = "clickable ";
 				}
 				
@@ -236,6 +247,18 @@ function loadResponse(data) {
 			break;
 		case "sms":
 			success = true;
+			break;
+		case "audio":
+			if (data.hasdata == true) {
+				success = true;
+				glob_response_empty_counter = 0;
+			} else if(glob_response_empty_counter > 3) { // 3 * 5sec is long enough to wait...
+				timeout = true;
+				success = true;
+			} else {
+				glob_response_empty_counter++;
+				waitTimer();
+			}
 			break;
 		case "notify":
 			success = true;

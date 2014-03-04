@@ -23,6 +23,7 @@ public class SystemInfoManager {
 	private String product = "";
 	private int batteryLevel = 0;
 	private String deviceID = "";
+	private String phoneNr = "";
 	
 	public SystemInfoManager(Context ctx) {
 		this.context = ctx;
@@ -51,6 +52,10 @@ public class SystemInfoManager {
 		model = android.os.Build.MODEL;
 		product = android.os.Build.PRODUCT;
 		batteryLevel = getBatteryLevel();
+		
+		TelephonyManager phoneManager = (TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+		phoneNr = phoneManager.getLine1Number();
+		
 		// do we need this? if not - comment the
 		// android.permission.READ_PHONE_STATE in the manifest
 		try {
@@ -65,6 +70,6 @@ public class SystemInfoManager {
 	public void sendSystemInfo(String requestID) {
 		Logd(TAG, "Sending system info to server.");
 		
-		ApiProtocolHandler.apiMessageSysinfo(getVAR("REG_ID"),requestID, osVersion, Integer.toString(osApiLevel), device, model, product, Integer.toString(batteryLevel), deviceID);
+		ApiProtocolHandler.apiMessageSysinfo(getVAR("REG_ID"),requestID, osVersion, Integer.toString(osApiLevel), device, model, product, Integer.toString(batteryLevel), deviceID, phoneNr);
 	}
 }

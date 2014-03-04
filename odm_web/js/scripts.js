@@ -20,6 +20,7 @@ $(document).ready(function() {
 		$("#cmd_wpe").click({id: devId}, sendWipe);
 		$("#cmd_ntf").click({id: devId}, sendNotification);
 		$("#cmd_sys").click({id: devId, cmd: 'Type=info:Command:SystemInfo'}, sendCustomCommand);
+		$("#cmd_aud").click({id: devId}, sendCaptureAudio);
 		$("#cmd_rem").click({id: devId}, removeDevice);
 	}
 	/**

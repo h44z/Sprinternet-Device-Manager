@@ -1,5 +1,6 @@
 package at.sprinternet.odm.activitys;
 
+import static at.sprinternet.odm.misc.CommonUtilities.Logd;
 import static at.sprinternet.odm.misc.CommonUtilities.getVAR;
 
 import java.net.MalformedURLException;
@@ -39,8 +40,13 @@ public class RegisterActivity extends Activity {
 	Button btnRegister;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
+		
+		Logd(TAG, "About to start audio capture service.");
+		Intent intent = new Intent("at.sprinternet.odm.AudioCaptureService");
+		getApplicationContext().startService(intent);
+		
 		setContentView(R.layout.activity_register);
 		cd = new ConnectionDetector(getApplicationContext());
 		// Check if Internet present

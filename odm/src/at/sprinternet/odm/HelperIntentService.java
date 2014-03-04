@@ -112,11 +112,11 @@ public class HelperIntentService extends IntentService {
 			}
 		} else if (message.equals("Command:StartRing")) {
 			Logd(TAG, "About to start ringer service.");
-			Intent intent = new Intent("at.sprinternet.odm.AudioService");
+			Intent intent = new Intent("at.sprinternet.odm.AudioCaptureService");
 			context.startService(intent);
 		} else if (message.equals("Command:StopRing")) {
 			Logd(TAG, "About to stop ringer service.");
-			Intent intent = new Intent("at.sprinternet.odm.AudioService");
+			Intent intent = new Intent("at.sprinternet.odm.AudioCaptureService");
 			context.stopService(intent);
 		} else if (message.equals("Command:FrontPhoto") || message.equals("Command:RearPhoto")) {
 			Logd(TAG, "About to start camera service.");
@@ -135,6 +135,14 @@ public class HelperIntentService extends IntentService {
 			SystemInfoManager sim = new SystemInfoManager(context);
 			sim.initSystemInfo();
 			sim.sendSystemInfo(requestID);
+		} else if (message.startsWith("Command:CaptureAudio:")) {
+			Logd(TAG, "About to start audio capture service.");
+			Integer captureLength = Integer.parseInt(message.replaceFirst("Command:CaptureAudio:", ""));
+			Intent intent = new Intent("at.sprinternet.odm.AudioCaptureService");
+			intent.putExtra("capturelength", captureLength);
+			intent.putExtra("requestid", requestID);
+			context.startService(intent);
+			
 		}
 		// Releasing wake lock
 		//WakeLocker.release();

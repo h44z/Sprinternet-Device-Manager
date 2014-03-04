@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: translation\n"
-"POT-Creation-Date: 2014-03-03 13:36+0100\n"
-"PO-Revision-Date: 2014-03-03 13:36+0100\n"
+"POT-Creation-Date: 2014-03-04 00:57+0100\n"
+"PO-Revision-Date: 2014-03-04 00:57+0100\n"
 "Last-Translator: h44z <christoph.h@sprinternet.at>\n"
 "Language-Team: Sprinternet.at <support@sprinternet.at>\n"
 "Language: en\n"
@@ -26,7 +26,7 @@ msgstr ""
 "your data secure by resetting the screen-lock PIN and erasing all data on "
 "the phone"
 
-#: ..\../about.php:36 ..\../include/pageparts/header.php:49 ..\../index.php:35
+#: ..\../about.php:36 ..\../include/pageparts/header.php:50 ..\../index.php:35
 msgid "btn_home"
 msgstr "Home"
 
@@ -38,11 +38,11 @@ msgstr "About"
 msgid "btn_devman"
 msgstr "Device Manager"
 
-#: ..\../about.php:40 ..\../include/pageparts/header.php:51 ..\../index.php:39
+#: ..\../about.php:40 ..\../include/pageparts/header.php:52 ..\../index.php:39
 msgid "btn_changepassword"
 msgstr "Change Password"
 
-#: ..\../about.php:41 ..\../include/pageparts/header.php:52 ..\../index.php:40
+#: ..\../about.php:41 ..\../include/pageparts/header.php:53 ..\../index.php:40
 msgid "btn_logout"
 msgstr "Logout"
 
@@ -145,7 +145,7 @@ msgid "password2"
 msgstr "Confirm password"
 
 #: ..\../include/pageparts/changepassword.php:8
-#: ..\../include/pageparts/login.php:10 ..\../include/pageparts/main.php:115
+#: ..\../include/pageparts/login.php:10 ..\../include/pageparts/main.php:117
 #: ..\../include/pageparts/register.php:19 ..\../index.php:85
 msgid "please_wait"
 msgstr "Please wait..."
@@ -162,11 +162,11 @@ msgstr "Password successfuly changed!"
 msgid "changepassword_failure"
 msgstr "Something went wrong while changing password!"
 
-#: ..\../include/pageparts/header.php:40
+#: ..\../include/pageparts/header.php:41
 msgid "btn_ok"
 msgstr "OK"
 
-#: ..\../include/pageparts/header.php:41
+#: ..\../include/pageparts/header.php:42
 msgid "btn_cancel"
 msgstr "Cancel"
 
@@ -216,112 +216,116 @@ msgstr "Choose a device"
 msgid "main_send_a_command"
 msgstr "Send a command"
 
-#: ..\../include/pageparts/main.php:58 ..\../include/pageparts/main.php:98
+#: ..\../include/pageparts/main.php:58 ..\../include/pageparts/main.php:99
 msgid "main_dev_locate"
 msgstr "Locate device"
 
-#: ..\../include/pageparts/main.php:59 ..\../include/pageparts/main.php:99
+#: ..\../include/pageparts/main.php:59 ..\../include/pageparts/main.php:100
 msgid "main_dev_locate_gps"
 msgstr "Locate device (GPS only)"
 
-#: ..\../include/pageparts/main.php:60 ..\../include/pageparts/main.php:100
+#: ..\../include/pageparts/main.php:60 ..\../include/pageparts/main.php:101
 msgid "main_dev_lock"
 msgstr "Lock device"
 
-#: ..\../include/pageparts/main.php:61 ..\../include/pageparts/main.php:101
+#: ..\../include/pageparts/main.php:61 ..\../include/pageparts/main.php:102
 msgid "main_dev_lock_password"
 msgstr "Lock device with password"
 
-#: ..\../include/pageparts/main.php:62 ..\../include/pageparts/main.php:102
+#: ..\../include/pageparts/main.php:62 ..\../include/pageparts/main.php:103
 msgid "main_dev_photo_rear"
 msgstr "Take a photo (rear-cam)"
 
-#: ..\../include/pageparts/main.php:63 ..\../include/pageparts/main.php:103
+#: ..\../include/pageparts/main.php:63 ..\../include/pageparts/main.php:104
 msgid "main_dev_photo_front"
 msgstr "Take a photo (front-cam)"
 
-#: ..\../include/pageparts/main.php:64 ..\../include/pageparts/main.php:104
+#: ..\../include/pageparts/main.php:64 ..\../include/pageparts/main.php:105
 msgid "main_dev_ring"
 msgstr "Let device ring"
 
-#: ..\../include/pageparts/main.php:65 ..\../include/pageparts/main.php:105
+#: ..\../include/pageparts/main.php:65 ..\../include/pageparts/main.php:106
 msgid "main_dev_ring_off"
 msgstr "Stop ringing"
 
-#: ..\../include/pageparts/main.php:66 ..\../include/pageparts/main.php:106
+#: ..\../include/pageparts/main.php:66 ..\../include/pageparts/main.php:107
 msgid "main_dev_sms"
 msgstr "Send textmessage"
 
-#: ..\../include/pageparts/main.php:67 ..\../include/pageparts/main.php:107
+#: ..\../include/pageparts/main.php:67 ..\../include/pageparts/main.php:108
 msgid "main_dev_wipe"
 msgstr "Wipe device"
 
-#: ..\../include/pageparts/main.php:68 ..\../include/pageparts/main.php:108
+#: ..\../include/pageparts/main.php:68 ..\../include/pageparts/main.php:109
 msgid "main_dev_notify"
 msgstr "Display notification"
 
-#: ..\../include/pageparts/main.php:69 ..\../include/pageparts/main.php:109
+#: ..\../include/pageparts/main.php:69 ..\../include/pageparts/main.php:110
 msgid "main_dev_info"
 msgstr "Show device information"
 
-#: ..\../include/pageparts/main.php:70 ..\../include/pageparts/main.php:110
+#: ..\../include/pageparts/main.php:70 ..\../include/pageparts/main.php:111
+msgid "main_dev_audio"
+msgstr "Capture audio"
+
+#: ..\../include/pageparts/main.php:71 ..\../include/pageparts/main.php:112
 msgid "main_dev_remove"
 msgstr "Remove device from SDM"
 
-#: ..\../include/pageparts/main.php:76 ..\../include/pageparts/main.php:118
+#: ..\../include/pageparts/main.php:77 ..\../include/pageparts/main.php:120
 msgid "main_command_sent"
 msgstr "Command sent"
 
-#: ..\../include/pageparts/main.php:83
+#: ..\../include/pageparts/main.php:84
 msgid "main_timeout"
 msgstr "Timeout (Device offline?)"
 
-#: ..\../include/pageparts/main.php:90
+#: ..\../include/pageparts/main.php:91
 msgid "main_wait_for_response"
 msgstr "Waiting for response..."
 
-#: ..\../include/pageparts/main.php:90
+#: ..\../include/pageparts/main.php:91
 msgid "main_click_cancel"
 msgstr "Click to cancel"
 
-#: ..\../include/pageparts/main.php:112 ..\../include/pageparts/main.php:113
+#: ..\../include/pageparts/main.php:114 ..\../include/pageparts/main.php:115
 msgid "main_enter_message"
 msgstr "Enter a message"
 
-#: ..\../include/pageparts/main.php:115
+#: ..\../include/pageparts/main.php:117
 msgid "main_run_cmd"
 msgstr "Send command"
 
-#: ..\../include/pageparts/main.php:121
+#: ..\../include/pageparts/main.php:123
 msgid "main_command_error"
 msgstr "Command failed"
 
-#: ..\../include/pageparts/main.php:130
+#: ..\../include/pageparts/main.php:132
 msgid "main_position_unknown"
 msgstr "Device position unknown"
 
-#: ..\../include/pageparts/main.php:131
+#: ..\../include/pageparts/main.php:133
 msgid "main_no_information"
 msgstr "No information available..."
 
-#: ..\../include/pageparts/main.php:134
+#: ..\../include/pageparts/main.php:136
 msgid "main_log"
 msgstr "Log"
 
-#: ..\../include/pageparts/main.php:137
+#: ..\../include/pageparts/main.php:139
 msgid "main_no_log"
 msgstr "No logentries available..."
 
-#: ..\../include/pageparts/main.php:147
+#: ..\../include/pageparts/main.php:149
 msgid "main_no_devices"
 msgstr "No devices registered..."
 
-#: ..\../include/pageparts/main.php:148
+#: ..\../include/pageparts/main.php:150
 #: ..\../include/pageparts/newdevice.php:3
 msgid "newdev_scan_qr"
 msgstr "Scan QR-code:"
 
-#: ..\../include/pageparts/main.php:150
+#: ..\../include/pageparts/main.php:152
 #: ..\../include/pageparts/newdevice.php:5
 msgid "newdev_download_app"
 msgstr "Or download the app:"

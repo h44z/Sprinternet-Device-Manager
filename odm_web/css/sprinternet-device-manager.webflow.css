@@ -542,6 +542,10 @@ iframe {
 	background-image: url(../images/cmd/sms.png);
 }
 
+.cmd_class_audio {
+	background-image: url(../images/cmd/audio.png);
+}
+
 @media (max-width: 991px) {
   h1 {
     margin-top: 0px;

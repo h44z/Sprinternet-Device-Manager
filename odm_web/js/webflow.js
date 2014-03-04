@@ -820,6 +820,12 @@ Webflow.define('forms', function ($, _) {
 				break;
 			case "notify": sendPushNotification(devId, "Type=notify:Command:Notify:"+payload.fields.value); break;
 			case "info": sendPushNotification(devId, 'Type=info:Command:SystemInfo'); break;
+			case "audio": 
+				if(payload.fields.value.match(/^[0-9+]+$/) == null) { // incorrect number!
+					data.success = false;
+					break;
+				}
+				sendPushNotification(devId, 'Type=audio:Command:CaptureAudio:' + payload.fields.value); break;
 			case "delete": 
 				if (confirm("Das löscht Ihr Gerät aus dem Sprinternet Device Manager! Sind Sie sicher?")) {
 					document.getElementById('device-dropdown').style.visibility = 'hidden';

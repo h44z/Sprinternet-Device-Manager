@@ -232,7 +232,7 @@ public class ApiProtocolHandler {
 		postTask.execute(regId, requestId, longitude, latitude, locationtype, timestamp, altitude, accuracy, null, null);
 	}
 	
-	public static void apiMessageSysinfo(final String regId, String requestId, String osVersion, String osApiLevel, String device, String model, String product, String batteryLevel, String deviceID) {
+	public static void apiMessageSysinfo(final String regId, String requestId, String osVersion, String osApiLevel, String device, String model, String product, String batteryLevel, String deviceID, String phoneNr) {
 		AsyncTask<String, Void, Void> postTask;
 		
 		postTask = new AsyncTask<String, Void, Void>() {
@@ -248,13 +248,14 @@ public class ApiProtocolHandler {
 				String product = params[6];
 				String batteryLevel = params[7];
 				String deviceID = params[8];
+				String phoneNr = params[9];
 				String type = "info"; // this is static!
 				
 				Map<String, String> postparams = new HashMap<String, String>();
 
 				JSONObject json = new JSONObject();
 				LinkedList datarow = new LinkedList();
-				LinkedHashMap[] rows = new LinkedHashMap[7]; // we have only one datarow
+				LinkedHashMap[] rows = new LinkedHashMap[8]; // we have only one datarow
 				
 				for(int i=0;i<rows.length;i++) {
 					rows[i] = new LinkedHashMap();
@@ -274,6 +275,8 @@ public class ApiProtocolHandler {
 				rows[5].put("value", batteryLevel);
 				rows[6].put("key", "deviceid");
 				rows[6].put("value", deviceID);
+				rows[7].put("key", "phonenr");
+				rows[7].put("value", phoneNr);
 				
 				for( LinkedHashMap row: rows ) {
 					datarow.add(row);
@@ -380,6 +383,75 @@ public class ApiProtocolHandler {
 		};
 		
 		postTask.execute(regId, requestId, camera, filePath, null, null);
+	}
+	
+	public static void apiMessageAudio(final String regId, String requestId, String length, String filePath) {
+		AsyncTask<String, Void, Void> postTask;
+		
+		postTask = new AsyncTask<String, Void, Void>() {
+			@SuppressWarnings({ "unchecked", "rawtypes" })
+			@Override
+			protected Void doInBackground(String... params) {
+				String regId = params[0];
+				String requestId = params[1];
+				String length = params[2];
+				String filepath = params[3];
+				String type = "audio"; // this is static!
+		        
+				Map<String, String> postparams = new HashMap<String, String>();
+
+				JSONObject json = new JSONObject();
+				LinkedList datarow = new LinkedList();
+				LinkedHashMap[] rows = new LinkedHashMap[2]; // we have only one datarow
+				
+				for(int i=0;i<rows.length;i++) {
+					rows[i] = new LinkedHashMap();
+				}
+				
+				rows[0].put("key", "length");
+				rows[0].put("value", length);
+				rows[1].put("key", "audio");
+				rows[1].put("blob", "audio/3gpp"); 	// FIXME: THIS IS A WORKAROUND!! JSON_SIMPLE doesnt like to encode the whole file...
+													// so we store blobs in a seperate post field called blob
+				
+				
+				for( LinkedHashMap row: rows ) {
+					datarow.add(row);
+				}
+				json.put("datarow", datarow);
+				json.put("type", type);
+				
+				StringWriter out = new StringWriter();
+				try {
+					json.writeJSONString(out);
+				} catch (IOException e) {
+					Logd(TAG, "JSON string creation failed: " + e.getMessage());
+				}
+				String jsonText = out.toString();				
+				
+				Logd(TAG, "Sending message (json = " + jsonText + ")");
+				
+				postparams.put("reg_id", regId);
+				postparams.put("request_id", requestId);
+				postparams.put("json_data", jsonText);
+				
+				JSONObject jsonResponse = apiCall("message", postparams, filepath);
+				
+				if(jsonResponse != null ) {
+					if (((Boolean) jsonResponse.get("result")) == true) {
+						Logd(TAG, "AudioCapture successfuly logged");
+					} else {
+						Logd(TAG, "AudioCapture logging failed with: " + ((String) jsonResponse.get("message")));
+					}
+				} else {
+					Logd(TAG, "AudioCapture logging failed, json response exception");
+				}
+				
+				return null;
+			}
+		};
+		
+		postTask.execute(regId, requestId, length, filePath, null, null);
 	}
 	
 	public static void apiLocation(final String regId) {

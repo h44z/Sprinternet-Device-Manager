@@ -102,6 +102,7 @@ function cmdChange() {
 		case "sms": toggleMessageField("Telefonnummer"); toggleMessageField2("Nachricht"); break;
 		case "wipe": hideMessageField(); hideMessageField2(); break;
 		case "notify": toggleMessageField("Nachrichtentext"); hideMessageField2(); break;
+		case "audio": toggleMessageField("Aufnahmedauer"); hideMessageField2(); break;
 		case "delete": hideMessageField(); hideMessageField2(); break;
 		default: hideMessageField(); hideMessageField2(); break;
 	}
