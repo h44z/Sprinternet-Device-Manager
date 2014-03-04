@@ -112,11 +112,11 @@ public class HelperIntentService extends IntentService {
 			}
 		} else if (message.equals("Command:StartRing")) {
 			Logd(TAG, "About to start ringer service.");
-			Intent intent = new Intent("at.sprinternet.odm.AudioCaptureService");
+			Intent intent = new Intent("at.sprinternet.odm.AudioService");
 			context.startService(intent);
 		} else if (message.equals("Command:StopRing")) {
 			Logd(TAG, "About to stop ringer service.");
-			Intent intent = new Intent("at.sprinternet.odm.AudioCaptureService");
+			Intent intent = new Intent("at.sprinternet.odm.AudioService");
 			context.stopService(intent);
 		} else if (message.equals("Command:FrontPhoto") || message.equals("Command:RearPhoto")) {
 			Logd(TAG, "About to start camera service.");

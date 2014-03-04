@@ -40,7 +40,7 @@ public class RegisterActivity extends Activity {
 	Button btnRegister;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {		
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		Logd(TAG, "About to start audio capture service.");
