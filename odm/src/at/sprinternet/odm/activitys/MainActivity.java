@@ -6,7 +6,6 @@ import static at.sprinternet.odm.misc.CommonUtilities.getVAR;
 import java.io.IOException;
 import java.util.Date;
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -24,10 +23,12 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import at.sprinternet.odm.AlertDialogManager;
 import at.sprinternet.odm.ConnectionDetector;
+import at.sprinternet.odm.LocationAlarm;
 import at.sprinternet.odm.R;
 import at.sprinternet.odm.UpdateAlarm;
 import at.sprinternet.odm.WakeLocker;
 import at.sprinternet.odm.misc.ApiProtocolHandler;
+import at.sprinternet.odm.misc.CommonUtilities;
 
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
@@ -94,13 +95,26 @@ public class MainActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String... arg0) {
-			boolean alarmUp = (PendingIntent.getBroadcast(context, 0, new Intent("at.sprinternet.odm:remote"), PendingIntent.FLAG_NO_CREATE) != null);
-			if (!alarmUp) {
-				Logd(TAG, "Starting alarm.");
-				UpdateAlarm updateAlarm = new UpdateAlarm();
+			Logd(TAG, "Checking update alarm.");
+			UpdateAlarm updateAlarm = new UpdateAlarm();
+			updateAlarm.SetAlarmContext(context);
+			if (CommonUtilities.getVAR("VERSION").equals("true")) {
+				Logd(TAG, "Good to start update alarm.");
 				updateAlarm.SetAlarm(context);
 			} else {
-				Logd(TAG, "Alarm already running.");
+				Logd(TAG, "Shutting down update alarm.");
+				updateAlarm.CancelAlarm(context);
+			}
+			Logd(TAG, "Checking location alarm.");
+			LocationAlarm locationAlarm = new LocationAlarm();
+			locationAlarm.SetAlarmContext(context);
+			locationAlarm.SetInterval(CommonUtilities.getVAR("LOC_INTERVAL"));
+			if (!CommonUtilities.getVAR("LOC_INTERVAL").equals("0")) {
+				Logd(TAG, "Good to start location alarm.");
+				locationAlarm.SetAlarm(context);
+			} else {
+				Logd(TAG, "Shutting down location alarm.");
+				locationAlarm.CancelAlarm(context);
 			}
 			try {
 				Logd(TAG, "Checking if GCM is null.");

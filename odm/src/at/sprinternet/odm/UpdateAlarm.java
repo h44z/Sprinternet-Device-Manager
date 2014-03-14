@@ -3,6 +3,8 @@ package at.sprinternet.odm;
 import static at.sprinternet.odm.misc.CommonUtilities.Logd;
 import static at.sprinternet.odm.misc.CommonUtilities.getVAR;
 
+import java.util.GregorianCalendar;
+
 import at.sprinternet.odm.R;
 import at.sprinternet.odm.misc.ApiProtocolHandler;
 
@@ -25,6 +27,7 @@ public class UpdateAlarm extends BroadcastReceiver {
 	private static final String TAG = "UpdateAlarm";
 	Boolean version_check = false;
 	Context globalContext;
+	Context alarmContext;
 
 	class BackgroundUpdate extends AsyncTask<String, String, String> {
 
@@ -70,27 +73,36 @@ public class UpdateAlarm extends BroadcastReceiver {
 		else
 			version_check = false;
 		Log.d(TAG, "Check for new version: " + version_check);
-		if (version_check) {
+		
+		ConnectionDetector cd = new ConnectionDetector(context);
+		if (version_check && cd.isConnectingToInternet()) {
 			new BackgroundUpdate().execute();
 		}
+	}
+	
+	public void SetAlarmContext(Context context) {
+		alarmContext = context;
 	}
 
 	public void SetAlarm(Context context) {
 		Logd(TAG, "Setting update alarm.");
-		CancelAlarm(context);
+		alarmContext = context;
+		CancelAlarm(alarmContext);
+		
+		Long time = new GregorianCalendar().getTimeInMillis() + 1000 * 60 * 60 * 24 * 7;
+		
 		AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		Intent i = new Intent(context, UpdateAlarm.class);
-		PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, Intent.FILL_IN_DATA);
-		am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 60 * 60 * 24 * 7, pi); // Millisec * Second * Minute * Hour * Days
-		//am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000 * 30, pi); // Millisec * Second * Minute * Hour * Days
+		Intent i = new Intent(alarmContext, UpdateAlarm.class);
+		PendingIntent pi = PendingIntent.getBroadcast(alarmContext, 98, i, PendingIntent.FLAG_UPDATE_CURRENT);
+		am.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 60 * 24 * 7, pi); // Millisec * Second * Minute * Hour * Days
 	}
 
 	public void CancelAlarm(Context context) {
 		Logd(TAG, "Unsetting update alarm.");
-		Intent intent = new Intent(context, UpdateAlarm.class);
-		PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		alarmManager.cancel(sender);
+		Intent i = new Intent(alarmContext, UpdateAlarm.class);
+		PendingIntent pi = PendingIntent.getBroadcast(alarmContext, 98, i, PendingIntent.FLAG_UPDATE_CURRENT);
+		AlarmManager alarmManager = (AlarmManager) alarmContext.getSystemService(Context.ALARM_SERVICE);
+		alarmManager.cancel(pi);
 	}
 
 	@SuppressWarnings("deprecation")

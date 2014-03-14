@@ -9,15 +9,12 @@ import static at.sprinternet.odm.misc.CommonUtilities.setVAR;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -232,7 +229,7 @@ public class ApiProtocolHandler {
 		postTask.execute(regId, requestId, longitude, latitude, locationtype, timestamp, altitude, accuracy, null, null);
 	}
 	
-	public static void apiMessageSysinfo(final String regId, String requestId, String osVersion, String osApiLevel, String device, String model, String product, String batteryLevel, String deviceID, String phoneNr) {
+	public static void apiMessageSysinfo(final String regId, String requestId, String osVersion, String osApiLevel, String device, String model, String product, String batteryLevel, String deviceID, String phoneNr, String appVersion) {
 		AsyncTask<String, Void, Void> postTask;
 		
 		postTask = new AsyncTask<String, Void, Void>() {
@@ -249,13 +246,14 @@ public class ApiProtocolHandler {
 				String batteryLevel = params[7];
 				String deviceID = params[8];
 				String phoneNr = params[9];
+				String appVersion = params[10];
 				String type = "info"; // this is static!
 				
 				Map<String, String> postparams = new HashMap<String, String>();
 
 				JSONObject json = new JSONObject();
 				LinkedList datarow = new LinkedList();
-				LinkedHashMap[] rows = new LinkedHashMap[8]; // we have only one datarow
+				LinkedHashMap[] rows = new LinkedHashMap[9]; // we have only one datarow
 				
 				for(int i=0;i<rows.length;i++) {
 					rows[i] = new LinkedHashMap();
@@ -277,6 +275,8 @@ public class ApiProtocolHandler {
 				rows[6].put("value", deviceID);
 				rows[7].put("key", "phonenr");
 				rows[7].put("value", phoneNr);
+				rows[8].put("key", "appversion");
+				rows[8].put("value", appVersion);
 				
 				for( LinkedHashMap row: rows ) {
 					datarow.add(row);
@@ -313,7 +313,7 @@ public class ApiProtocolHandler {
 				return null;
 			}
 		};
-		postTask.execute(regId, requestId, osVersion, osApiLevel, device, model, product, batteryLevel, deviceID, null, null);
+		postTask.execute(regId, requestId, osVersion, osApiLevel, device, model, product, batteryLevel, deviceID, phoneNr, appVersion, null, null);
 	}
 	
 	public static void apiMessageImage(final String regId, String requestId, String camera, String filePath) {
@@ -454,7 +454,7 @@ public class ApiProtocolHandler {
 		postTask.execute(regId, requestId, length, filePath, null, null);
 	}
 	
-	public static void apiLocation(final String regId) {
+	public static void apiLocation(final String regId, String longitude, String latitude, String locationtype, String timestamp, String altitude, String accuracy) {
 		AsyncTask<String, Void, Void> postTask;
 		
 		postTask = new AsyncTask<String, Void, Void>() {
@@ -464,23 +464,31 @@ public class ApiProtocolHandler {
 				String regId = params[0];
 				String longitude = params[1];
 				String latitude = params[2];
-				String height = params[3];
-				String type = params[4];
-				String timestamp =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMAN).format(Calendar.getInstance().getTime());
+				String locationtype = params[3];
+				String timestamp = params[4];
+				String altitude = params[5];
+				String accuracy = params[6];
+				
 				Map<String, String> postparams = new HashMap<String, String>();
 
 				JSONObject json = new JSONObject();
 				LinkedList datarow = new LinkedList();
-				LinkedHashMap row = new LinkedHashMap(); // we have only one datarow
+				LinkedHashMap[] rows = new LinkedHashMap[1]; // we have only one datarow
 				
-				row.put("longitude", longitude);
-				row.put("latitude", latitude);
-				row.put("type", type);
-				row.put("timestamp", timestamp);
-				if(height != null)
-					row.put("height", height);
+				for(int i=0;i<rows.length;i++) {
+					rows[i] = new LinkedHashMap();
+				}
 				
-				datarow.add(row);
+				rows[0].put("longitude", longitude);
+				rows[0].put("latitude", latitude);
+				rows[0].put("type", locationtype);
+				rows[0].put("timestamp", timestamp);
+				rows[0].put("altitude", altitude);
+				rows[0].put("accuracy", accuracy);
+				
+				for( LinkedHashMap row: rows ) {
+					datarow.add(row);
+				}
 				json.put("datarow", datarow);
 				
 				StringWriter out = new StringWriter();
@@ -491,8 +499,7 @@ public class ApiProtocolHandler {
 				}
 				String jsonText = out.toString();
 				
-				
-				Logd(TAG, "Sending locationg (json = " + jsonText + ")");
+				Logd(TAG, "Sending message (json = " + jsonText + ")");
 				
 				postparams.put("reg_id", regId);
 				postparams.put("json_data", jsonText);
@@ -500,17 +507,17 @@ public class ApiProtocolHandler {
 				
 				if(jsonResponse != null ) {
 					if (((Boolean) jsonResponse.get("result")) == true) {
-						Logd(TAG, "Location successfuly logged");
+						Logd(TAG, "Location history successfuly logged");
 					} else {
-						Logd(TAG, "Location logging failed with: " + ((String) jsonResponse.get("message")));
+						Logd(TAG, "Location history logging failed with: " + ((String) jsonResponse.get("message")));
 					}
 				} else {
-					Logd(TAG, "Location logging failed, json response exception");
+					Logd(TAG, "Location history logging failed, json response exception");
 				}
 				
 				return null;
 			}
 		};
-		postTask.execute(regId, null, null);
+		postTask.execute(regId, longitude, latitude, locationtype, timestamp, altitude, accuracy, null, null);
 	}
 }

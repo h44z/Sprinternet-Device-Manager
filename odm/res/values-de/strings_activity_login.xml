@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="title_activity_login">Enter PIN</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Sicherheits PIN</string>
+    <string name="action_sign_in_register"><b>Weiter</b></string>
+    <string name="action_sign_in_short">Weiter</string>
+    <string name="action_forgot_password">Passwort vergessen</string>
+    <string name="login_progress_signing_in">Weiter&#8230;</string>
+    <string name="error_invalid_email">Emailadresse falsch</string>
+    <string name="error_invalid_password">PIN zu kurz</string>
+    <string name="error_incorrect_password">PIN ist falsch</string>
+    <string name="error_field_required">Dieses Feld darf nicht leer sein</string>
+    
+    <string name="login_header">Gib deine PIN ein um Einstellungen zu ändern:</string>
+
+</resources>

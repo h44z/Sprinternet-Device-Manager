@@ -12,6 +12,7 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -55,13 +56,16 @@ public class StartupActivity extends Activity {
 				su = "";
 			}
 		}
-
-		// Clears preference data for testing
-		/*
-		Editor editor = getApplicationContext().getSharedPreferences("usersettings", Context.MODE_PRIVATE).edit();
-		editor.clear();
-		editor.commit();
-		*/
+		
+		PackageManager p = getPackageManager();
+		ComponentName componentName = new ComponentName("at.sprinternet.odm", "at.sprinternet.odm.activitys.IconActivity");
+		if (CommonUtilities.getVAR("HIDDEN").equals("false")) {
+			CommonUtilities.Logd(TAG, "Showing icon");
+			p.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+		} else {
+			CommonUtilities.Logd(TAG, "Hiding icon");
+			p.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+		}
 
 		CommonUtilities.Logd(TAG, "Getting admin permissions");
 		DevicePolicyManager mDPM;

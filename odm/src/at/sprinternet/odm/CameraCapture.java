@@ -6,12 +6,15 @@ import static at.sprinternet.odm.misc.CommonUtilities.getVAR;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import at.sprinternet.odm.R;
 import at.sprinternet.odm.misc.ApiProtocolHandler;
 
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
+import android.hardware.Camera.AutoFocusCallback;
+import android.hardware.Camera.Size;
 import android.os.Handler;
 import android.view.Display;
 import android.view.Gravity;
@@ -34,6 +37,10 @@ public class CameraCapture implements SurfaceHolder.Callback {
 	Camera.Parameters params;
 	Camera.PictureCallback callback;
 	Display display;
+	Boolean max = false;
+	Boolean focused = false;
+	int focusTimeout = 10; // in seconds
+	long focusStart = 0;
 
 	private static final String TAG = "CameraCapture";
 
@@ -63,6 +70,10 @@ public class CameraCapture implements SurfaceHolder.Callback {
 			this.c.release();
 			this.c = null;
 		}
+	}
+	
+	public void setMax(Boolean m) {
+		max = m;
 	}
 
 	public void setCamera(int inCameraInt) {
@@ -131,57 +142,20 @@ public class CameraCapture implements SurfaceHolder.Callback {
 		}
 		while (true) {
 			try {
-				// TODO Handle orientation and resolution.
-				// Two versions of code below exist, but neither work properly.
-				/*
-				params = c.getParameters();
-				Logd(TAG, "Orientation: " + cs.getResources().getConfiguration().orientation);
-				if (cs.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-					Logd(TAG, "Setting orientation to portrait.");
-					params.set("orientation", "portrait");
-					if (cameraInt == 1)
-						params.set("rotation", 270);
-					else {
-						params.set("rotation", 90);
+				if (max) {
+					params = c.getParameters();
+					List<Size> sl = params.getSupportedPictureSizes();
+					int w = 0;
+					int h = 0;
+					for (Size s : sl) {
+						if (s.width > w) {
+							w = s.width;
+							h = s.height;
+						}
 					}
-				} else if (cs.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-					Logd(TAG, "Setting orientation to landscape.");
-					params.set("orientation", "landscape");
-					//params.set("rotation", 90);
+					params.setPictureSize(w, h);
+					c.setParameters(params);
 				}
-				c.setParameters(params);
-				*/
-				/*
-				Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
-				Camera.getCameraInfo(cameraInt, info);
-				int rotation = display.getRotation();
-				Logd(TAG, "Camera rotation: " + rotation);
-				int degrees = 0;
-				switch (rotation) {
-				case Surface.ROTATION_0:
-					degrees = 0;
-					break;
-				case Surface.ROTATION_90:
-					degrees = 90;
-					break;
-				case Surface.ROTATION_180:
-					degrees = 180;
-					break;
-				case Surface.ROTATION_270:
-					degrees = 270;
-					break;
-				}
-				Logd(TAG, "Camera compensation degrees: " + degrees);
-				int result;
-				if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-					result = (info.orientation + degrees) % 360;
-					result = (360 - result) % 360; // compensate the mirror
-				} else { // back-facing
-					result = (info.orientation - degrees + 360) % 360;
-				}
-				Logd(TAG, "Camera compensation result: " + result);
-				c.setDisplayOrientation(result);
-				*/
 				c.setPreviewDisplay(sh_created);
 				c.startPreview();
 				return;
@@ -191,6 +165,26 @@ public class CameraCapture implements SurfaceHolder.Callback {
 				return;
 			}
 		}
+	}
+	
+	public void waitForFocus() {
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				long curTime = System.currentTimeMillis();
+				if (focused == true || (curTime - focusStart >= (focusTimeout*1000))) { 
+					try {
+						Logd(TAG, "Taking picture...");
+						c.takePicture(null, null, callback);
+					} catch (RuntimeException e) {
+						Logd(TAG, e.getMessage());
+					}
+				} else {
+					waitForFocus();
+				}
+			}
+		}, 2000);
 	}
 
 	public void captureImage(final String messageId) {
@@ -205,9 +199,12 @@ public class CameraCapture implements SurfaceHolder.Callback {
 			handler.postDelayed(new Runnable() {
 				@Override
 				public void run() {
-					try {
-						Logd(TAG, "Taking the picture... ");
-						c.takePicture(null, null, callback);
+					try {						
+						Logd(TAG, "Focusing...");
+						//c.takePicture(null, null, callback);
+						focusStart = System.currentTimeMillis();
+						c.autoFocus(afc);
+						waitForFocus();
 					} catch (RuntimeException e) {
 						Logd(TAG, e.getMessage());
 					}
@@ -238,7 +235,7 @@ public class CameraCapture implements SurfaceHolder.Callback {
 			String cam = "rear";
 			if(cameraInt == 1)
 				cam = "front";
-			// postparams.put("data", URLEncoder.encode(Base64.encodeToString(data, Base64.DEFAULT)));
+			
 			Logd(TAG, "Trying to send pic for requestId: " + this.requestID);
 			Logd(TAG, "Image size: " + data.length + " bytes");
 			
@@ -261,4 +258,22 @@ public class CameraCapture implements SurfaceHolder.Callback {
 			stopCapture();
 		}
 	}
+	
+	final AutoFocusCallback afc = new AutoFocusCallback() {
+		@Override
+		public void onAutoFocus(boolean success, Camera camera) {
+			Handler handler = new Handler();
+			handler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Logd(TAG, "Got focus.");
+						focused = true;
+					} catch (RuntimeException e) {
+						Logd(TAG, e.getMessage());
+					}
+				}
+			}, 2000);
+		}
+	};
 }

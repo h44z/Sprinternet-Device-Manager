@@ -90,8 +90,78 @@
             android:layout_margin="10dip"
             android:layout_marginBottom="10dip"
             android:ems="10"
+           	android:hint="@string/reg_empty_pin"
             android:inputType="numberPassword" >
         </EditText>
+        
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:text="@string/reg_location_history" />
+
+        <EditText
+            android:id="@+id/txtLocHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:layout_marginBottom="10dip"
+            android:ems="10"
+            android:hint="@string/loc_history_default"
+            android:text="@string/loc_history_default"
+            android:inputType="number" >
+        </EditText>
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ToggleButton
+                android:id="@+id/tglNetworkOnly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dip"
+                android:checked="true"
+                android:text="@string/toggle"
+                android:textOff="@string/no"
+                android:textOn="@string/yes" />
+
+            <TextView
+                android:id="@+id/textView0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tglNetworkOnly"
+                android:layout_toRightOf="@+id/tglNetworkOnly"
+                android:text="@string/reg_location_history_type" />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ToggleButton
+                android:id="@+id/tglHideIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dip"
+                android:checked="false"
+                android:text="@string/toggle"
+                android:textOff="@string/no"
+                android:textOn="@string/yes" />
+
+            <TextView
+                android:id="@+id/textViewHideIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tglHideIcon"
+                android:layout_toRightOf="@+id/tglHideIcon"
+                android:text="@string/reg_hide_icon" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/layout_checkssl"

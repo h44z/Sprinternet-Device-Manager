@@ -23,7 +23,7 @@ public final class CommonUtilities extends Activity {
 	/**
 	 * Set this to true to enable all input fields and settings
 	 */
-	public static boolean APP_ALL_OPTIONS = true;
+	public static boolean APP_ALL_OPTIONS = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

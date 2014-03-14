@@ -4,6 +4,7 @@ import static at.sprinternet.odm.misc.CommonUtilities.Logd;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.view.Display;
@@ -14,7 +15,10 @@ public class CameraService extends Service {
 
 	int cameraInt = 0;
 	Context context;
-
+	Boolean max = false;
+	int volume = 0;
+	AudioManager am;
+	
 	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
@@ -26,8 +30,11 @@ public class CameraService extends Service {
 		String message = intent.getStringExtra("message");
 		final String requestid = intent.getStringExtra("requestid");
 		context = getApplicationContext();
-		if (message.equals("Command:FrontPhoto"))
+		if (message.equals("Command:FrontPhoto") || message.equals("Command:FrontPhotoMAX"))
 			cameraInt = 1;
+		if (message.equals("Command:RearPhotoMAX") || message.equals("Command:FrontPhotoMAX"))
+			max = true;
+		
 		Handler handler = new Handler();
 		
 		class CustomStarterRunnable implements Runnable {
@@ -45,12 +52,18 @@ public class CameraService extends Service {
 		}
 		
 		handler.postDelayed(new CustomStarterRunnable(requestid), 2000);
+		am = (AudioManager) getApplicationContext().getSystemService("audio");
+		volume = am.getStreamVolume(1);
+		Logd(TAG, "Current volume: " + volume);
+		am.setStreamVolume(1, 0, 0); // set volume to zero
+		
 		return START_STICKY;
 	}
 
 	private void captureImage(String requestid) {
 		Logd(TAG, "About to capture image...");
 		final CameraCapture cc = new CameraCapture();
+		cc.setMax(max);
 		Logd(TAG, "Setting camera...");
 		cc.setCamera(cameraInt);
 	    WindowManager window = (WindowManager) getSystemService(Context.WINDOW_SERVICE); 
@@ -82,6 +95,7 @@ public class CameraService extends Service {
 	
 	public void stopCamera() {
 		Logd(TAG, "Stopping camera service.");
+		am.setStreamVolume(1, volume, 0); // set volume back to previous value
 		this.stopSelf();
 	}
 }

@@ -15,6 +15,7 @@
 	<!-- configurable values -->
 	<string name="spn_serv_url">https://www.sprinternet.at/odm</string>
 	<string name="play_url">https://play.google.com/store/apps/details?id=at.sprinternet.odm</string>
+	<string name="loc_history_default">0</string>
 	
     <!-- main -->    
     <string name="main_welcome">Sichere dein Gerät</string>
@@ -29,7 +30,8 @@
     <string name="register_devname">Gerätename:</string>
     <string name="register_serverurl">Server URL:</string>
     <string name="register_username">Benutzername:</string>
-    <string name="register_password">Passwort:</string>    
+    <string name="register_password">Passwort:</string>
+    <string name="register_pin">Sicherheits PIN:</string>
 	<string name="register_checkssl">Validiere SSL Zertifikate</string>
 	<string name="register_debug">Debug aktivieren</string>
 	<string name="register_checkversion">Auf neue Versionen prüfen</string>
@@ -44,6 +46,10 @@
 	<string name="reg_successful">Registrierung am Server erfolgreich.</string>
 	<string name="reg_unsuccessful">Registrierung am Server fehlgeschlagen, prüfe deine Einstellungen.</string>
 	<string name="reg_reregistered">Registrierung am Server erfolgreich erneuert!</string>
+	<string name="reg_location_history">Ortsaufzeichnungsintervall in Minuten:\n(0 = deaktiviert)</string>
+	<string name="reg_location_history_type">Nur Netwerkortung durchführen.\n(Spart Akku)</string>
+	<string name="reg_hide_icon">Icon verbergen. Starten der App mit: "#*## + PIN"</string>
+	<string name="reg_empty_pin">ACHTUNG: LEERER PIN</string>
 	
 	<!-- Updater -->
 	<string name="update_available">SDM Update verfügbar. Klicke zum Downloaden.</string>
