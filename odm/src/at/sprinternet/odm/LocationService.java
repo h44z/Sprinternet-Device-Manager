@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.IBinder;
+import android.provider.Settings;
 import at.sprinternet.odm.GetLocation.LocationResult;
 import at.sprinternet.odm.misc.ApiProtocolHandler;
 
@@ -21,6 +22,7 @@ public class LocationService extends Service {
 	Context context;
 	LocationType locationType = LocationType.ALL;
 	Boolean isHistory = false;
+	Boolean locationDisabled = false;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -51,9 +53,13 @@ public class LocationService extends Service {
  			}
  		}
 
+		@SuppressWarnings("deprecation")
+		String locationProviders = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+		Logd( TAG, "LocationProviders: " + locationProviders );
+		
 		LocationResult locationResult = new CustomLocationResult(requestId, isHistory);
 		GetLocation myLocation = new GetLocation();
-		myLocation.getLocation(context, locationResult, locationType);
+		locationDisabled = !myLocation.getLocation(context, locationResult, locationType);
 		return START_STICKY;
 	}
 

@@ -33,8 +33,9 @@ public class GetLocation {
 		}
 
 		// Don't start listeners if no provider is enabled
-		if (!gps_enabled && !network_enabled)
+		if (!gps_enabled && !network_enabled) {
 			return false;
+		}
 
 		if (gps_enabled && !locationType.equals(LocationType.NETWORKONLY))
 			lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
