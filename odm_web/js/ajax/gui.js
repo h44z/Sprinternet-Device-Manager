@@ -77,13 +77,31 @@ function toggleControls() {
 }
 
 function hideControls() {
-	$('#togglecontrols').removeClass("dev_togglecontrolsup");
-	$('.dev_mainoverlay').hide();
+	if($('#togglecontrols').is(":visible")) {
+		$('#togglecontrols').removeClass("dev_togglecontrolsup");
+		$('.dev_mainoverlay').hide();
+	}
+}
+
+function getURLParameter(name) {
+	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
 }
 
 function selectDevice(id) {
 	$('#device-dropdown').hide();
-	window.location.href = "?id="+id;
+	var p = getURLParameter("p");
+	
+	if(p && p != ""){
+		p = "&p=" + p;
+	}
+	window.location.href = "?id="+id + "" + p;
+}
+
+function setStatusText(curlocation, curlocation_mapped) {
+	if (typeof(devId) !== 'undefined' && curlocation !== null && curlocation_mapped !== null) {
+		$("#curlocation-container").html(curlocation);
+		$("#curlocation_mapped-container").html(curlocation_mapped);
+	}
 }
 
 function cmdChange() {

@@ -198,6 +198,9 @@ iframe {
   background-color: #474545;
   border-top-width: 2px;
 }
+.dev_content img {
+  max-width: inherit;
+}
 .dev_overlay {
   position: absolute;
   left: 100px;
@@ -505,10 +508,20 @@ iframe {
 	background-repeat: no-repeat;
 	background-size: auto 100%;
 	background-image: url(../images/cmd/default.png);
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+	filter: grayscale(100%);
 }
 
 .clickable {
 	cursor: pointer;
+	-webkit-filter: grayscale(0%);
+	-moz-filter: grayscale(0%);
+	-o-filter: grayscale(0%);
+	-ms-filter: grayscale(0%);
+	filter: grayscale(0%);
 }
 
 .cmd_class_photo {
@@ -544,6 +557,11 @@ iframe {
 
 .cmd_class_audio {
 	background-image: url(../images/cmd/audio.png);
+}
+
+#loc_startdate, #loc_enddate {
+	cursor: default;
+	background: #fff;
 }
 
 @media (max-width: 991px) {

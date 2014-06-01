@@ -138,21 +138,19 @@ function loadMessages(max) {
 		$.post(url, {id: devId, max: max}, gotMessages);
 		$("#cmd_form_done").hide();
 		$("#cmd_form_fail").hide();
-	} else {
-		showMap();
 	}
 }
 
 function gotMessages(data) {
 	var log = "";
 	if(data && data.result == true && data.hasdata == true) {
-		messages = data.datarow;
+		var messages = data.datarow;
 		
 		if(messages) {
 			for (var i = 0; i < messages.length; i++) {
 				var even = i%2 == 0 ? " cmd_response_log_even" : "";
 				var onclick = "";
-				var onclickclass = "";
+				var onclickclass = "disabled ";
 				
 				if (messages[i].type == "location" && messages[i].has_data == true) {
 					onclick = " onclick='loadPrevMap("+messages[i].id+")'";
@@ -197,6 +195,7 @@ function waitTimer() {
 		);
 	}
 }
+
 function checkForNewMessage(data) {
 	if (data && data != "" && data != "[]" && data.result == true && lastCommandType != null) {
 		loadResponse(data);
@@ -213,7 +212,8 @@ function loadResponse(data) {
 	switch(lastCommandType) {
 		case "location":
 			if (data.hasdata == true) {
-				buildMapOfJSON(data.datarow);
+				removeAllMarkers(); // clear map
+				buildMapOfJSON(data.datarow, true);
 				success = true;
 				glob_response_empty_counter = 0;
 			} else if(glob_response_empty_counter > 3) { // 3 * 5sec is long enough to wait...

@@ -47,6 +47,35 @@ class Device extends DynamicDatabaseObject{
 		return $return;
 	}
 	
+	public function loadLocationByDate($startdate, $enddate) {
+		$return = null;
+		if($this->_objDataCount > 0 && $this->__get("id") != null) {
+			dbconnect();
+			$sql = "SELECT `id` FROM `{$this->mapped_table_name_location}` WHERE `device_id`=? AND `recv_date` BETWEEN ? AND ? ORDER BY `id` DESC"; // order newest entries first
+			global $con;
+			$stmt = $con->prepare($sql);
+			$stmt->execute(array($this->__get("id"), $startdate, $enddate));
+			
+			$check_count = $stmt->rowCount();
+			if ($check_count > 0) {
+				$this->_data["location"] = array();
+				
+				$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				foreach ($rows as $row) {
+					$this->_data["location"][] = new DeviceLocation($row["id"]);
+				}
+				
+				$return = $check_count;
+			} else {
+				$this->_data["location"] = null;
+			}
+			dbclose();
+		} else {
+			$this->_data["location"] = null;
+		}
+		return $return;
+	}
+	
 	public function loadInfo($limit = array(0,100)) {
 		$return = null;
 		if($this->_objDataCount > 0 && $this->__get("id") != null) {
@@ -109,7 +138,7 @@ class Device extends DynamicDatabaseObject{
 						break;
 					}
 				}
-			} 
+			}
 		}
 		return $return;
 	}

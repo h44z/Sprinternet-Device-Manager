@@ -34,9 +34,10 @@ include("include/core.php");
         <a class="w-nav-brand sdm_brand" href="#"></a>
         <nav class="w-nav-menu" role="navigation">
 			<a class="w-nav-link sdm_navlink" href="index.php"><?php echo _("btn_home"); ?></a>
-			<a class="w-nav-link sdm_navlink" href="about.php"><?php echo _("btn_about"); ?></a>
+			<a class="w-nav-link sdm_navlink w--current" href="about.php"><?php echo _("btn_about"); ?></a>
 			<?php if (isset($_SESSION['user_id'])) { ?>
 				<a class="w-nav-link sdm_navlink" href="odm.php?p=main"><?php echo _("btn_devman"); ?></a>
+				<a class="w-nav-link sdm_navlink" href="odm.php?p=locationhistory"><?php echo _("btn_locationhistory"); ?></a>
 				<a class="w-nav-link sdm_navlink" href="odm.php?p=changepassword"><?php echo _("btn_changepassword"); ?></a>
 				<a class="w-nav-link sdm_navlink" href="ajax/connector.php?cmd=logout"><?php echo _("btn_logout"); ?></a>
 			<?php } else { ?>	

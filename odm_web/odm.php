@@ -15,6 +15,7 @@ switch($page) {
 	case "login": include("include/pageparts/login.php"); break;
 	case "register": include("include/pageparts/register.php"); break;
 	case "changepassword": include("include/pageparts/changepassword.php"); break;
+	case "locationhistory": include("include/pageparts/locationhistory.php"); break;
 	default: include("include/pageparts/main.php"); break;
 }
 

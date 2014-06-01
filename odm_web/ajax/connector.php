@@ -103,6 +103,41 @@ switch($cmd) {
 			respond(array("result"=>false, "message"=>"malformedrequest"));
 		}
 		break;
+	case "dev_lochist":
+		if (isset($_POST["id"]) && isset($_POST["daystart"])) {
+			$id = $_POST["id"];
+			$daystart = $_POST["daystart"];
+			if(isset($_POST["dayend"]) && !empty($_POST["dayend"]))
+				$dayend = $_POST["dayend"];
+			else {
+				date_default_timezone_set('Europe/Vienna');
+				$dayend = date('Y-m-d', time());
+			}
+			$dev = new Device($id);
+			$dev->loadLocationByDate($daystart, $dayend);
+			
+			$datarow = array();
+			$hasdata = false;
+			
+			foreach($dev->location as $location) {
+				$hasdata = true;
+				$row = array();
+				$row["id"] = $location->id;
+				$row["timestamp"] = $location->timestamp;
+				$row["longitude"] = $location->longitude;
+				$row["latitude"] = $location->latitude;
+				$row["altitude"] = $location->altitude;
+				$row["accuracy"] = $location->accuracy;
+				$row["type"] = $location->type;
+				
+				$datarow[] = $row;
+			}
+			
+			respond(array("result"=>true, "message"=>"dataloaded", "hasdata"=>$hasdata, "datarow"=>$datarow));
+		} else {
+			respond(array("result"=>false, "message"=>"malformedrequest"));
+		}
+		break;
 	case "dev_getmessageresponse":
 		if (isset($_POST["id"]) && isset($_POST["messageid"])) {
 			$id = $_POST["id"];

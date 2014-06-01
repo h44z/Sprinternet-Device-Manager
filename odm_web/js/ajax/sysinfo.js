@@ -16,8 +16,10 @@ function gotSysInfo(data) {
 		html += "<p><strong>Product</strong>: " + data.datarow.product + "</p>";
 		html += "<p><strong>Model</strong>: " + data.datarow.model + "</p>";
 		html += "<p><strong>Battery level</strong>: " + data.datarow.batterylevel + "%</p>";
-		html += "<p><strong>Phonenumber</strong>: " + data.datarow.phonenr + "</p>";
+		if(data.datarow.phonenr && data.datarow.phonenr != "")
+			html += "<p><strong>Phonenumber</strong>: " + data.datarow.phonenr + "</p>";
 		html += "<p><strong>Device ID (IMEI)</strong>: " + data.datarow.deviceid + "</p>";
+		html += "<p><strong>App Version</strong>: " + data.datarow.appversion + "</p>";
 	} else {
 		html += "<p>No data to display!</p>";
 	}	

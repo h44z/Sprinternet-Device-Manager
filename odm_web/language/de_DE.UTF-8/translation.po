@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: translation\n"
-"POT-Creation-Date: 2014-03-04 00:58+0100\n"
-"PO-Revision-Date: 2014-03-04 00:58+0100\n"
+"POT-Creation-Date: 2014-03-17 22:34+0100\n"
+"PO-Revision-Date: 2014-03-17 22:35+0100\n"
 "Last-Translator: h44z <christoph.h@sprinternet.at>\n"
 "Language-Team: Sprinternet.at <support@sprinternet.at>\n"
 "Language: en\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Orten Sie ihr Handy nach einem Diebstahl oder löschen Sie remote Ihre "
 "wichtigen Daten, vor sie in falsche Hände geraten."
 
-#: ..\../about.php:36 ..\../include/pageparts/header.php:50 ..\../index.php:35
+#: ..\../about.php:36 ..\../include/pageparts/header.php:58 ..\../index.php:35
 msgid "btn_home"
 msgstr "Home"
 
@@ -37,35 +37,39 @@ msgstr "Über"
 msgid "btn_devman"
 msgstr "Geräte Manager"
 
-#: ..\../about.php:40 ..\../include/pageparts/header.php:52 ..\../index.php:39
+#: ..\../about.php:40 ..\../include/pageparts/header.php:60 ..\../index.php:39
+msgid "btn_locationhistory"
+msgstr "Standortverlauf"
+
+#: ..\../about.php:41 ..\../include/pageparts/header.php:61 ..\../index.php:40
 msgid "btn_changepassword"
 msgstr "Passwort ändern"
 
-#: ..\../about.php:41 ..\../include/pageparts/header.php:53 ..\../index.php:40
+#: ..\../about.php:42 ..\../include/pageparts/header.php:62 ..\../index.php:41
 msgid "btn_logout"
 msgstr "Logout"
 
-#: ..\../about.php:43 ..\../include/pageparts/login.php:10 ..\../index.php:42
+#: ..\../about.php:44 ..\../include/pageparts/login.php:10 ..\../index.php:43
 msgid "btn_login"
 msgstr "Login"
 
-#: ..\../about.php:54 ..\../index.php:64
+#: ..\../about.php:55 ..\../index.php:65
 msgid "based_on_opensource"
 msgstr "Basierend auf Open Source Software."
 
-#: ..\../about.php:58
+#: ..\../about.php:59
 msgid "about_about"
 msgstr "Über"
 
-#: ..\../about.php:59
+#: ..\../about.php:60
 msgid "about_contact"
 msgstr "Kontakt"
 
-#: ..\../about.php:66
+#: ..\../about.php:67
 msgid "about_software"
 msgstr "Software"
 
-#: ..\../about.php:67
+#: ..\../about.php:68
 msgid "about_software_description"
 msgstr ""
 "Der Sprinternet Device Manager basiert auf dem Open Device Manager von <a "
@@ -133,18 +137,19 @@ msgstr "Altes Password"
 
 #: ..\../include/pageparts/changepassword.php:6
 #: ..\../include/pageparts/login.php:9 ..\../include/pageparts/register.php:17
-#: ..\../index.php:83
+#: ..\../index.php:84
 msgid "password"
 msgstr "Passwort"
 
 #: ..\../include/pageparts/changepassword.php:7
-#: ..\../include/pageparts/register.php:18 ..\../index.php:84
+#: ..\../include/pageparts/register.php:18 ..\../index.php:85
 msgid "password2"
 msgstr "Passwort wiederholen"
 
 #: ..\../include/pageparts/changepassword.php:8
+#: ..\../include/pageparts/locationhistory.php:58
 #: ..\../include/pageparts/login.php:10 ..\../include/pageparts/main.php:117
-#: ..\../include/pageparts/register.php:19 ..\../index.php:85
+#: ..\../include/pageparts/register.php:19 ..\../index.php:86
 msgid "please_wait"
 msgstr "Bitte warten..."
 
@@ -161,13 +166,58 @@ msgstr "Passwort erfolgreich aktualisiert!"
 msgid "changepassword_failure"
 msgstr "Fehler beim Aktualisieren des Passwortes!"
 
-#: ..\../include/pageparts/header.php:41
+#: ..\../include/pageparts/header.php:49
 msgid "btn_ok"
 msgstr "OK"
 
-#: ..\../include/pageparts/header.php:42
+#: ..\../include/pageparts/header.php:50
 msgid "btn_cancel"
 msgstr "Abbrechen"
+
+#: ..\../include/pageparts/locationhistory.php:27
+#: ..\../include/pageparts/main.php:27
+msgid "main_choose_device"
+msgstr "Wähle "
+
+#: ..\../include/pageparts/locationhistory.php:28
+#: ..\../include/pageparts/locationhistory.php:42
+#: ..\../include/pageparts/main.php:28 ..\../include/pageparts/main.php:46
+msgid "main_registered_at"
+msgstr "Registriert am:"
+
+#: ..\../include/pageparts/locationhistory.php:40
+#: ..\../include/pageparts/main.php:44
+msgid "main_choose_a_device"
+msgstr "Wähle ein Gerät"
+
+#: ..\../include/pageparts/locationhistory.php:54
+msgid "loc_startdate"
+msgstr "Start-Datum"
+
+#: ..\../include/pageparts/locationhistory.php:56
+msgid "loc_enddate"
+msgstr "End-Datum"
+
+#: ..\../include/pageparts/locationhistory.php:58
+msgid "loc_get_location"
+msgstr "Verlauf ansehen"
+
+#: ..\../include/pageparts/locationhistory.php:68
+#: ..\../include/pageparts/main.php:149
+msgid "main_no_devices"
+msgstr "Keine Geräte registriert..."
+
+#: ..\../include/pageparts/locationhistory.php:69
+#: ..\../include/pageparts/main.php:150
+#: ..\../include/pageparts/newdevice.php:3
+msgid "newdev_scan_qr"
+msgstr "Scanne den QR-Code:"
+
+#: ..\../include/pageparts/locationhistory.php:71
+#: ..\../include/pageparts/main.php:152
+#: ..\../include/pageparts/newdevice.php:5
+msgid "newdev_download_app"
+msgstr "Oder lade die App herunter:"
 
 #: ..\../include/pageparts/login.php:4
 msgid "login_login"
@@ -178,12 +228,12 @@ msgid "login_no_account"
 msgstr "Noch keinen Account?"
 
 #: ..\../include/pageparts/login.php:6 ..\../include/pageparts/register.php:13
-#: ..\../index.php:79
+#: ..\../index.php:80
 msgid "index_register_now"
 msgstr "Registriere dich jetzt!"
 
 #: ..\../include/pageparts/login.php:8 ..\../include/pageparts/register.php:15
-#: ..\../index.php:81
+#: ..\../index.php:82
 msgid "username"
 msgstr "Benutzername"
 
@@ -195,21 +245,9 @@ msgstr "Anmeldung erfolgreich."
 msgid "login_failure"
 msgstr "Anmeldung fehlgeschlagen."
 
-#: ..\../include/pageparts/main.php:27
-msgid "main_choose_device"
-msgstr "Wähle "
-
-#: ..\../include/pageparts/main.php:28 ..\../include/pageparts/main.php:46
-msgid "main_registered_at"
-msgstr "Registriert am:"
-
 #: ..\../include/pageparts/main.php:37
 msgid "main_add_new_device"
 msgstr "Neues Gerät hinzufügen"
-
-#: ..\../include/pageparts/main.php:44
-msgid "main_choose_a_device"
-msgstr "Wähle ein Gerät"
 
 #: ..\../include/pageparts/main.php:53
 msgid "main_send_a_command"
@@ -315,20 +353,6 @@ msgstr "Ereignisanzeige:"
 msgid "main_no_log"
 msgstr "Keine Logeinträge..."
 
-#: ..\../include/pageparts/main.php:149
-msgid "main_no_devices"
-msgstr "Keine Geräte registriert..."
-
-#: ..\../include/pageparts/main.php:150
-#: ..\../include/pageparts/newdevice.php:3
-msgid "newdev_scan_qr"
-msgstr "Scanne den QR-Code:"
-
-#: ..\../include/pageparts/main.php:152
-#: ..\../include/pageparts/newdevice.php:5
-msgid "newdev_download_app"
-msgstr "Oder lade die App herunter:"
-
 #: ..\../include/pageparts/newdevice.php:2
 msgid "newdev_add_new"
 msgstr "Gerät hinzufügen:"
@@ -337,41 +361,41 @@ msgstr "Gerät hinzufügen:"
 msgid "newdev_done"
 msgstr "Fertig"
 
-#: ..\../include/pageparts/register.php:14 ..\../index.php:80
+#: ..\../include/pageparts/register.php:14 ..\../index.php:81
 msgid "index_free_registration"
 msgstr "Die Anmeldung ist komplett kostenlos!"
 
-#: ..\../include/pageparts/register.php:16 ..\../index.php:82
+#: ..\../include/pageparts/register.php:16 ..\../index.php:83
 msgid "email"
 msgstr "Emailadresse"
 
-#: ..\../include/pageparts/register.php:19 ..\../index.php:85
+#: ..\../include/pageparts/register.php:19 ..\../index.php:86
 msgid "register"
 msgstr "Registrieren"
 
-#: ..\../include/pageparts/register.php:20 ..\../index.php:86
+#: ..\../include/pageparts/register.php:20 ..\../index.php:87
 msgid "index_privacy_note"
 msgstr "Wir geben Ihre Informationen nicht weiter."
 
-#: ..\../include/pageparts/register.php:23 ..\../index.php:89
+#: ..\../include/pageparts/register.php:23 ..\../index.php:90
 msgid "index_reg_success"
 msgstr "Danke, deine Registrierung war erfolgreich!"
 
-#: ..\../include/pageparts/register.php:26 ..\../index.php:92
+#: ..\../include/pageparts/register.php:26 ..\../index.php:93
 msgid "index_reg_failure"
 msgstr "Es gab einen Fehler bei der Registrierung."
 
-#: ..\../index.php:56
+#: ..\../index.php:57
 msgid "index_headline"
 msgstr "Mit dem Sprinternet Device Manager finden Sie ihr Smartphone immer!"
 
-#: ..\../index.php:57
+#: ..\../index.php:58
 msgid "index_description"
 msgstr ""
 "Orten Sie ihr Handy nach einem Diebstahl oder löschen Sie remote Ihre "
 "wichtigen Daten, vor sie in falsche Hände geraten."
 
-#: ..\../index.php:70
+#: ..\../index.php:71
 msgid "index_app"
 msgstr "Die App:"
 

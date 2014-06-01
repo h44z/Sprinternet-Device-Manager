@@ -1,5 +1,20 @@
+<?php
+global $current_page;
+$current_page = "main";
+if(isset($_GET["p"]) && !empty($_GET["p"])) {
+	$current_page = $_GET["p"];
+}
+
+function currPage($pname = "main") {
+	global $current_page;
+	
+	if($pname == $current_page) {
+		echo " w--current";
+	}
+}
+?>
 <!DOCTYPE html>
-<html data-wf-site="odm">
+<html data-wf-site="<?php echo $current_page; ?>">
 <head>
   <meta charset="utf-8">
   <title><?php echo _("title");?></title>
@@ -8,13 +23,21 @@
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/webflow.css">
   <link rel="stylesheet" type="text/css" href="css/sprinternet-device-manager.webflow.css">
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsDnQDzeemwozaPgGbNW99qL2Ag7ySKsM&sensor=false"></script>
   <script src="js/webfont.js"></script>
   <script src="js/ajax/misc.js"></script>
   <script src="js/ajax/gui.js"></script>
   <script src="js/ajax/map.js"></script>
-  <script src="js/ajax/image.js"></script>
-  <script src="js/ajax/sysinfo.js"></script>
-  <script src="js/ajax/audio.js"></script>
+  <?php 
+	if($current_page != "locationhistory") {
+  ?>
+	<script src="js/ajax/image.js"></script>
+	<script src="js/ajax/sysinfo.js"></script>
+	<script src="js/ajax/audio.js"></script>
+  <?php
+	}
+  ?>
   <script src="js/ajax/ajax.js"></script>
   <script>
     WebFont.load({
@@ -47,9 +70,10 @@
       <div class="w-container">
         <a class="w-nav-brand sdm_brand" href="index.php"></a>
         <nav class="w-nav-menu" role="navigation">
-			<a class="w-nav-link sdm_navlink" href="odm.php"><?php echo _("btn_home"); ?></a>
+			<a class="w-nav-link sdm_navlink<?php currPage();?>" href="odm.php"><?php echo _("btn_home"); ?></a>
 			<?php if (isset($_SESSION['user_id'])) { ?>
-				<a class="w-nav-link sdm_navlink" href="odm.php?p=changepassword"><?php echo _("btn_changepassword"); ?></a>
+				<a class="w-nav-link sdm_navlink<?php currPage("locationhistory");?>" href="odm.php?p=locationhistory"><?php echo _("btn_locationhistory"); ?></a>
+				<a class="w-nav-link sdm_navlink<?php currPage("changepassword");?>" href="odm.php?p=changepassword"><?php echo _("btn_changepassword"); ?></a>
 				<a class="w-nav-link sdm_navlink" href="ajax/connector.php?cmd=logout"><?php echo _("btn_logout"); ?></a>
 			<?php } ?>			
         </nav>

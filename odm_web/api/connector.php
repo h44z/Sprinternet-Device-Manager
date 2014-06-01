@@ -16,10 +16,6 @@ if(isset($_GET["cmd"])) {
 	respond(array("result"=>false, "message"=>"commandexpected"));
 }
 
-//error_log("receiving message");
-//error_log(print_r($_POST,true));
-//error_log(print_r($_FILES, true));
-
 //if($cmd !== "appversion") // do not auth if checking version
 include '../include/checkpostlogin.php';
 
@@ -61,7 +57,9 @@ switch($cmd) {
 				respond(array("result"=>false, "message"=>"gcmidwrong"));
 			}
 			
+			$device->loadInfo(); // refresh the info store!
 			$info = $device->getInfo("id", $reqid); // could also be done via DeviceInfo($reqid); but is is more safe - we could verify the device
+
 			if($info !== null) {
 				$i = 0;
 				foreach($json_data->datarow as $datarow) {
@@ -123,16 +121,17 @@ switch($cmd) {
 			}
 			
 			foreach($json_data->datarow as $datarow) {
-				if(!isset($datarow->longitude) || !isset($datarow->latitude) || !isset($datarow->timestamp) || !isset($datarow->type))
+				if(!isset($datarow->longitude) || !isset($datarow->latitude) || !isset($datarow->timestamp) || !isset($datarow->type)) {
 					respond(array("result"=>false, "message"=>"malformeddata"));
-			
+				}
+				
 				$altitude = null;
 				if(isset($datarow->altitude))
-						$altitude = $datarow->altitude;
+					$altitude = $datarow->altitude;
 						
 				$accuracy = null;
 				if(isset($datarow->accuracy))
-						$accuracy = $datarow->accuracy;
+					$accuracy = $datarow->accuracy;
 				
 			
 				$res = $device->createLocation($datarow->longitude, $datarow->latitude, $altitude, $accuracy, $datarow->timestamp, $datarow->type);

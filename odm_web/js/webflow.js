@@ -1139,28 +1139,6 @@ Webflow.define('maps', function ($, _) {
 });
 /**
  * ----------------------------------------------------------------------
- * Webflow: Google+ widget
- */
-Webflow.define('gplus', function ($) {
-  'use strict';
-
-  var $doc = $(document);
-  var api = {};
-
-  api.ready = function () {
-    // Load Google+ API on the front-end
-    if (!Webflow.env()) init();
-  };
-
-  function init() {
-    $doc.find('.w-widget-gplus') && Webflow.script('https://apis.google.com/js/plusone.js');
-  }
-
-  // Export module
-  return api;
-});
-/**
- * ----------------------------------------------------------------------
  * Webflow: Smooth scroll
  */
 Webflow.define('scroll', function ($) {
@@ -1852,7 +1830,7 @@ Webflow.define('navbar', function ($, _) {
     el = $(el);
     var slug = (inApp ? Webflow.env('slug') : window.location.pathname) || '';
     var href = el.attr('href');
-    el.toggleClass(linkCurrent, slug === href || slug.indexOf(href, slug.length - href.length) !== -1);
+    //el.toggleClass(linkCurrent, slug === href || slug.indexOf(href, slug.length - href.length) !== -1);
   }
 
   function removeOverlay(data) {
