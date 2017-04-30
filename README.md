@@ -1,4 +1,4 @@
-Sprinternet-Device-Manager
+Sprinternet-Device-Manager (DISCONTINUED)
 ==========================
 
 A opensource android device manager based on ODM (https://github.com/Fmstrat)
